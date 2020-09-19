@@ -1,6 +1,7 @@
-import { BrowserRouter as Router, Link, Switch, Route } from 'react-router-dom';
-import React, { useState, useParams } from "react";
+import { BrowserRouter as Router, Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
+import React, { useState } from "react";
 import "./App.css";
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Home = () => (
 	<div>
@@ -19,8 +20,9 @@ const Home = () => (
 
 
 const Note = ({ notes }) => {
-	const id = useParams().id
-	const note = notes.find(n => n.id === Number(id))
+	const id = useParams().id;
+	const note = notes.find(note => note.id === Number(id));
+
 	return (
 		<div>
 			<h2>{note.content}</h2>
@@ -54,6 +56,31 @@ const Users = () => (
 	</div>
 );
 
+const Login = (props) => {
+	const history = useHistory();
+
+	const onSubmit = (event) => {
+		event.preventDefault();
+		props.onLogin('mluukkai');
+		history.push('/');
+	}
+
+	return (
+		<div>
+			<h2>Login</h2>
+			<form onSubmit={onSubmit}>
+				<div>
+					username : < input />
+				</div>
+				<div>
+					password : <input />
+				</div>
+				<button type='submit'>login</button>
+			</form>
+		</div>
+	)
+}
+
 function App() {
 	const [notes, setNotes] = useState([
 		{
@@ -74,8 +101,12 @@ function App() {
 			important: true,
 			user: 'Arto Hellas'
 		}
-	])
+	]);
+	const [user, setUser] = useState(null);
 
+	const login = (user) => {
+		setUser(user);
+	}
 	const padding = {
 		padding: 5
 	}
@@ -88,14 +119,24 @@ function App() {
 				< Link style={padding} to='/'> home </Link>
 				< Link style={padding} to='/notes'> notes </Link>
 				< Link style={padding} to='/users'> users </Link>
+				{user
+					? <em>{user} logged in</em>
+					: <Link style={padding} to='/login'>login</Link>
+				}
 			</div>
 
 			<Switch>
+				<Route path='/notes/:id'>
+					<Note notes={notes} />
+				</Route>
 				<Route path='/notes' >
 					<Notes notes={notes} />
 				</Route>
-				<Route path='/user' >
-					<Users />
+				<Route path="/users">
+					{user ? <Users /> : <Redirect to="/login" />}
+				</Route>
+				<Route path='/login'>
+					<Login onLogin={login} />
 				</Route>
 				<Route path='/'>
 					<Home />
@@ -103,7 +144,7 @@ function App() {
 			</Switch>
 
 			<div>
-				<i>The Note App, jim4067 2020 </i>
+				<i>The Note App, jim4067 &copy;2020 </i>
 			</div>
 		</Router>
 	);
