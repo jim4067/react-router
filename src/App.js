@@ -102,6 +102,9 @@ function App() {
 				</Route>
 			</Switch>
 
+			<div>
+				<i>The Note App, jim4067 2020 </i>
+			</div>
 		</Router>
 	);
 }
