@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
+import { Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
@@ -107,13 +107,13 @@ function App() {
 	const login = (user) => {
 		setUser(user);
 	}
+
 	const padding = {
 		padding: 5
 	}
 
-
 	return (
-		<Router >
+		<div >
 
 			<div>
 				< Link style={padding} to='/'> home </Link>
@@ -144,9 +144,9 @@ function App() {
 			</Switch>
 
 			<div>
-				<i>The Note App, jim4067 &copy;2020 </i>
+				<i>The Notes App, jim4067 &copy;2020 </i>
 			</div>
-		</Router>
+		</div >
 	);
 }
 
