@@ -1,4 +1,4 @@
-import { Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
+import { useRouteMatch, Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
@@ -19,9 +19,9 @@ const Home = () => (
 )
 
 
-const Note = ({ notes }) => {
-	const id = useParams().id;
-	const note = notes.find(note => note.id === Number(id));
+const Note = ({ note }) => {
+	//const id = useParams().id;
+	//const note = notes.find(note => note.id === Number(id));
 
 	return (
 		<div>
@@ -109,8 +109,13 @@ function App() {
 	}
 
 	const padding = {
-		padding: 5
+		'padding': '5px'
 	}
+
+	const match = useRouteMatch('/notes/:id');
+	const note = match
+		? notes.find((note) => note.id === Number(match.params.id))
+		: null
 
 	return (
 		<div >
@@ -127,7 +132,7 @@ function App() {
 
 			<Switch>
 				<Route path='/notes/:id'>
-					<Note notes={notes} />
+					<Note note={note} />
 				</Route>
 				<Route path='/notes' >
 					<Notes notes={notes} />
