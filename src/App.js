@@ -1,4 +1,4 @@
-import { useRouteMatch, Link, Switch, Route, useParams, useHistory } from 'react-router-dom';
+import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom';
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
