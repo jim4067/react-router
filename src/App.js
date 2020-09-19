@@ -4,7 +4,7 @@ import "./App.css";
 
 const Home = () => (
 	<div>
-		<h2>TKTL notes app</h2>
+		<h2>The Notes App</h2>
 		<p>
 			Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 			Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
@@ -94,7 +94,14 @@ function App() {
 				<Route path='/notes' >
 					<Notes notes={notes} />
 				</Route>
+				<Route path='/user' >
+					<Users />
+				</Route>
+				<Route path='/'>
+					<Home />
+				</Route>
 			</Switch>
+
 		</Router>
 	);
 }
