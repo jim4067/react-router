@@ -2,7 +2,7 @@ import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { Table, Form, Button } from 'react-bootstrap';
+import { Table, Form, Button, Alert } from 'react-bootstrap';
 
 const Home = () => (
 	<div>
@@ -69,7 +69,7 @@ const Login = (props) => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-		props.onLogin('mluukkai');
+		props.onLogin('jim4067');
 		history.push('/');
 	}
 
@@ -115,12 +115,24 @@ function App() {
 			content: 'Most important methods of HTTP-protocol are GET and POST',
 			important: true,
 			user: 'Arto Hellas'
+		},
+		{
+			id: 4,
+			content: "Typescript is a superset of Javascript as is the case with C++ supersetting C",
+			important: true,
+			user: "jim4067"
 		}
 	]);
 	const [user, setUser] = useState(null);
+	const [message, setMessage] = useState(null);
 
 	const login = (user) => {
 		setUser(user);
+
+		setMessage(`welcome ${user}`);
+		setTimeout(() => {
+			setMessage(null);
+		}, 1000);
 	}
 
 	const padding = {
@@ -134,6 +146,11 @@ function App() {
 
 	return (
 		<div className='container' >
+			{(message &&
+				<Alert variant='success'>
+					{message}
+				</Alert>
+			)}
 
 			<div>
 				< Link style={padding} to='/'> home </Link>
