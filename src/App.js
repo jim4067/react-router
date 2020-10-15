@@ -2,7 +2,7 @@ import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { Table, Form, Button, Alert } from 'react-bootstrap';
+import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap';
 
 const Home = () => (
 	<div>
@@ -152,15 +152,28 @@ function App() {
 				</Alert>
 			)}
 
-			<div>
-				< Link style={padding} to='/'> home </Link>
-				< Link style={padding} to='/notes'> notes </Link>
-				< Link style={padding} to='/users'> users </Link>
-				{user
-					? <em>{user} logged in</em>
-					: <Link style={padding} to='/login'>login</Link>
-				}
-			</div>
+			<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' >
+				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
+				<Navbar.Collapse id='responsive-navbar-nav'>
+					<Nav className='mr-auto'>
+						<Nav.Link href="#" as="span">
+							<Link style={padding} to="/">home</Link>
+						</Nav.Link>
+						<Nav.Link href="#" as="span">
+							<Link style={padding} to="/notes">notes</Link>
+						</Nav.Link>
+						<Nav.Link href="#" as="span">
+							<Link style={padding} to="/users">users</Link>
+						</Nav.Link>
+						<Nav.Link href="#" as="span">
+							{user
+								? <em>{user} logged in</em>
+								: <Link to="/login">login</Link>
+							}
+						</Nav.Link>
+					</Nav>
+				</Navbar.Collapse>
+			</Navbar>
 
 			<Switch>
 				<Route path='/notes/:id'>
@@ -188,3 +201,7 @@ function App() {
 }
 
 export default App;
+
+
+//learned routing here and how to use react-bootstrap here
+//in the other branch will learn about materialUI
