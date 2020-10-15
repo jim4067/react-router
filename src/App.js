@@ -119,11 +119,11 @@ function App() {
 		}
 	]);
 	const [user, setUser] = useState(null);
-	const [message , setMessage] = useState(null);
+	const [message, setMessage] = useState(null);
 
 	const login = (user) => {
 		setUser(user);
-		
+
 		setMessage(`oh thank God you're back ${user}`);
 		setTimeout(() => {
 			setMessage(null);
@@ -133,6 +133,12 @@ function App() {
 	const padding = {
 		'padding': '5px'
 	}
+	const topPadding = {
+		'padding-top': '20px'
+	}
+	const smallPadding = {
+		'padding-top': '10px'
+	}
 
 	const match = useRouteMatch('/notes/:id');
 	const note = match
@@ -140,15 +146,15 @@ function App() {
 		: null
 
 	return (
-		<Container >
+		<Container style={topPadding} >
 			{(
-				message && 
+				message &&
 				<Alert severity='success' >
 					{message}
 				</Alert>
 			)}
 
-			<div>
+			<div style={smallPadding}>
 				< Link style={padding} to='/'> home </Link>
 				< Link style={padding} to='/notes'> notes </Link>
 				< Link style={padding} to='/users'> users </Link>
@@ -176,7 +182,7 @@ function App() {
 				</Route>
 			</Switch>
 
-			<div>
+			<div style={topPadding} >
 				<i>The Notes App, jim4067 &copy;2020 </i>
 			</div>
 
@@ -185,3 +191,5 @@ function App() {
 }
 
 export default App;
+
+//learning about material UI in this here tutorial
