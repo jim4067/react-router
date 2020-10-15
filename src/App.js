@@ -2,6 +2,7 @@ import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Table } from 'react-bootstrap';
 
 const Home = () => (
 	<div>
@@ -35,12 +36,22 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
 	<div>
 		<h2>Notes</h2>
+		<Table stripped>
+			<tbody>
+				{notes.map(note =>
+					<tr key={note.id}>
+						<td>
+						<Link to={`/notes/${note.id}`}>{note.content}</Link>
+						</td>
+						<td>
+							{note.user}
+						</td>
+					</tr>
+				)}
+			</tbody>
+		</Table>
 		<ul>
-			{notes.map(note =>
-				<li key={note.id}>
-					<Link to={`/notes/${note.id}`}>{note.content}</Link>
-				</li>
-			)}
+
 		</ul>
 	</div>
 );
@@ -118,7 +129,7 @@ function App() {
 		: null
 
 	return (
-		<div >
+		<div className='container' >
 
 			<div>
 				< Link style={padding} to='/'> home </Link>
