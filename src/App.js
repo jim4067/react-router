@@ -2,7 +2,7 @@ import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { Table } from 'react-bootstrap';
+import { Table, Form, Button } from 'react-bootstrap';
 
 const Home = () => (
 	<div>
@@ -41,7 +41,7 @@ const Notes = ({ notes }) => (
 				{notes.map(note =>
 					<tr key={note.id}>
 						<td>
-						<Link to={`/notes/${note.id}`}>{note.content}</Link>
+							<Link to={`/notes/${note.id}`}> {note.content} </Link>
 						</td>
 						<td>
 							{note.user}
@@ -50,9 +50,6 @@ const Notes = ({ notes }) => (
 				)}
 			</tbody>
 		</Table>
-		<ul>
-
-		</ul>
 	</div>
 );
 
@@ -79,15 +76,22 @@ const Login = (props) => {
 	return (
 		<div>
 			<h2>Login</h2>
-			<form onSubmit={onSubmit}>
-				<div>
-					username : < input />
-				</div>
-				<div>
-					password : <input />
-				</div>
-				<button type='submit'>login</button>
-			</form>
+			<Form onSubmit={onSubmit}>
+				<Form.Group>
+					<Form.Label > Username: </Form.Label>
+					<Form.Control
+						type='text'
+						name='username'
+					/>
+					<Form.Label> Password: </Form.Label>
+					<Form.Control
+						type='password'
+					/>
+					<Button variant='primary' type='submit'>
+						login
+					</Button>
+				</Form.Group>
+			</Form>
 		</div>
 	)
 }
