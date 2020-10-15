@@ -1,7 +1,8 @@
 import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom';
 import React, { useState } from "react";
-import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
+import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@material-ui/core';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Alert } from '@material-ui/lab';
 
 const Home = () => (
 	<div>
@@ -75,12 +76,16 @@ const Login = (props) => {
 			<h2>Login</h2>
 			<form onSubmit={onSubmit}>
 				<div>
-					username : < input />
+					<TextField label="username" />
 				</div>
 				<div>
-					password : <input />
+					<TextField label="Password" type='password' />
 				</div>
-				<button type='submit'>login</button>
+				<div>
+					<Button variant='contained' color='primary' type='submit' >
+						login
+					</Button>
+				</div>
 			</form>
 		</div>
 	)
@@ -108,15 +113,21 @@ function App() {
 		},
 		{
 			id: 4,
-			content: "numero foro. Keep on keepin on",
+			content: "Huge thanks for the musical genius that is Sasha Sloan",
 			important: false,
 			user: "jim4067"
 		}
 	]);
 	const [user, setUser] = useState(null);
+	const [message , setMessage] = useState(null);
 
 	const login = (user) => {
 		setUser(user);
+		
+		setMessage(`oh thank God you're back ${user}`);
+		setTimeout(() => {
+			setMessage(null);
+		}, 2000);
 	}
 
 	const padding = {
@@ -130,6 +141,12 @@ function App() {
 
 	return (
 		<Container >
+			{(
+				message && 
+				<Alert severity='success' >
+					{message}
+				</Alert>
+			)}
 
 			<div>
 				< Link style={padding} to='/'> home </Link>
