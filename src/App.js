@@ -1,6 +1,6 @@
 import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom';
 import React, { useState } from "react";
-import "./App.css";
+import { Container, Paper, Table, TableBody, TableCell, TableContainer, TableRow } from '@material-ui/core';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const Home = () => (
@@ -35,13 +35,18 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
 	<div>
 		<h2>Notes</h2>
-		<ul>
-			{notes.map(note =>
-				<li key={note.id}>
-					<Link to={`/notes/${note.id}`}>{note.content}</Link>
-				</li>
-			)}
-		</ul>
+		<TableContainer component={Paper} >
+			<Table>
+				<TableBody>
+					{notes.map(note =>
+						<TableRow key={note.id}>
+							<TableCell ><Link to={`/notes/${note.id}`}> {note.content}</Link></TableCell>
+							<TableCell >{note.user}</TableCell>
+						</TableRow>
+					)}
+				</TableBody>
+			</Table>
+		</TableContainer>
 	</div>
 );
 
@@ -61,7 +66,7 @@ const Login = (props) => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
-		props.onLogin('mluukkai');
+		props.onLogin('jim4067');
 		history.push('/');
 	}
 
@@ -100,6 +105,12 @@ function App() {
 			content: 'Most important methods of HTTP-protocol are GET and POST',
 			important: true,
 			user: 'Arto Hellas'
+		},
+		{
+			id: 4,
+			content: "numero foro. Keep on keepin on",
+			important: false,
+			user: "jim4067"
 		}
 	]);
 	const [user, setUser] = useState(null);
@@ -118,7 +129,7 @@ function App() {
 		: null
 
 	return (
-		<div >
+		<Container >
 
 			<div>
 				< Link style={padding} to='/'> home </Link>
@@ -151,7 +162,8 @@ function App() {
 			<div>
 				<i>The Notes App, jim4067 &copy;2020 </i>
 			</div>
-		</div >
+
+		</Container>
 	);
 }
 
