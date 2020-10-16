@@ -39,7 +39,7 @@ const Notes = ({ notes }) => (
 		<TableContainer component={Paper} >
 			<Table>
 				<TableBody>
-					{notes.map(note =>
+					{notes.map((note) =>
 						<TableRow key={note.id}>
 							<TableCell ><Link to={`/notes/${note.id}`}> {note.content}</Link></TableCell>
 							<TableCell >{note.user}</TableCell>
@@ -133,12 +133,6 @@ function App() {
 	const padding = {
 		'padding': '5px'
 	}
-	const topPadding = {
-		'padding-top': '20px'
-	}
-	const smallPadding = {
-		'padding-top': '10px'
-	}
 
 	const match = useRouteMatch('/notes/:id');
 	const note = match
@@ -146,7 +140,7 @@ function App() {
 		: null
 
 	return (
-		<Container style={topPadding} >
+		<Container style={{ 'padding-top': '20px' }} >
 			{(
 				message &&
 				<Alert severity='success' >
@@ -154,7 +148,7 @@ function App() {
 				</Alert>
 			)}
 
-			<div style={smallPadding}>
+			<div style={{ 'padding-top': '10px' }}>
 				< Link style={padding} to='/'> home </Link>
 				< Link style={padding} to='/notes'> notes </Link>
 				< Link style={padding} to='/users'> users </Link>
@@ -182,7 +176,7 @@ function App() {
 				</Route>
 			</Switch>
 
-			<div style={topPadding} >
+			<div style={{ 'padding-top': '20px' }} >
 				<i>The Notes App, jim4067 &copy;2020 </i>
 			</div>
 
