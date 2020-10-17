@@ -2,7 +2,32 @@ import { useRouteMatch, Link, Switch, Route, useHistory } from 'react-router-dom
 import React, { useState } from "react";
 import "./App.css";
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
-import { Table, Form, Button, Alert, Navbar, Nav } from 'react-bootstrap';
+import styled from 'styled-components';
+
+const Button = styled.button`
+	background: Busque;
+	font-size: 1em;
+	margin: 1em;
+	padding: .25em, 1em;
+	border: 2px solid Chocolate;
+	border-radius: 3px;
+`
+const Input = styled.input`
+margin: .25em;
+`
+const Page = styled.div`
+padding: 1em;
+background: papayawhip;
+`
+const Navigation = styled.div`
+background: BurlyWood;
+padding: 1em;
+`
+const Footer = styled.div`
+background: Chocolate;
+ margin-top: 1em;
+ padding: 1em;
+`
 
 const Home = () => (
 	<div>
@@ -36,20 +61,13 @@ const Note = ({ note }) => {
 const Notes = ({ notes }) => (
 	<div>
 		<h2>Notes</h2>
-		<Table stripped>
-			<tbody>
-				{notes.map(note =>
-					<tr key={note.id}>
-						<td>
-							<Link to={`/notes/${note.id}`}> {note.content} </Link>
-						</td>
-						<td>
-							{note.user}
-						</td>
-					</tr>
-				)}
-			</tbody>
-		</Table>
+
+		{notes.map(note =>
+			<ul key={note.id}>
+				<li> <Link to={`/notes/${note.id}`} > {note.content} </Link> </li>
+			</ul>
+		)}
+
 	</div>
 );
 
@@ -76,22 +94,19 @@ const Login = (props) => {
 	return (
 		<div>
 			<h2>Login</h2>
-			<Form onSubmit={onSubmit}>
-				<Form.Group>
-					<Form.Label > Username: </Form.Label>
-					<Form.Control
-						type='text'
-						name='username'
-					/>
-					<Form.Label> Password: </Form.Label>
-					<Form.Control
-						type='password'
-					/>
-					<Button variant='primary' type='submit'>
-						login
-					</Button>
-				</Form.Group>
-			</Form>
+			<form onSubmit={onSubmit}>
+				<div>
+					username
+					<Input />
+				</div>
+				<div>
+					passowrd
+					<Input type='password' />
+				</div>
+				<Button type='submit'>
+					login
+				</Button>
+			</form>
 		</div>
 	)
 }
@@ -145,35 +160,17 @@ function App() {
 		: null
 
 	return (
-		<div className='container' >
-			{(message &&
-				<Alert variant='success'>
-					{message}
-				</Alert>
-			)}
+		<Page >
 
-			<Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' >
-				<Navbar.Toggle aria-controls='responsive-navbar-nav' />
-				<Navbar.Collapse id='responsive-navbar-nav'>
-					<Nav className='mr-auto'>
-						<Nav.Link href="#" as="span">
-							<Link style={padding} to="/">home</Link>
-						</Nav.Link>
-						<Nav.Link href="#" as="span">
-							<Link style={padding} to="/notes">notes</Link>
-						</Nav.Link>
-						<Nav.Link href="#" as="span">
-							<Link style={padding} to="/users">users</Link>
-						</Nav.Link>
-						<Nav.Link href="#" as="span">
-							{user
-								? <em>{user} logged in</em>
-								: <Link to="/login">login</Link>
-							}
-						</Nav.Link>
-					</Nav>
-				</Navbar.Collapse>
-			</Navbar>
+			<Navigation>
+				< Link style={padding} to='/'> home </Link>
+				< Link style={padding} to='/notes'> notes </Link>
+				< Link style={padding} to='/users'> users </Link>
+				{user
+					? <em>{user} logged in</em>
+					: <Link style={padding} to='/login'>login</Link>
+				}
+			</Navigation>
 
 			<Switch>
 				<Route path='/notes/:id'>
@@ -193,10 +190,10 @@ function App() {
 				</Route>
 			</Switch>
 
-			<div>
+			<Footer>
 				<i>The Notes App, jim4067 &copy;2020 </i>
-			</div>
-		</div >
+			</Footer>
+		</Page >
 	);
 }
 
